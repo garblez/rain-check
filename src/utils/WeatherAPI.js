@@ -10,7 +10,7 @@ export {getWeatherByName, getWeatherByPos}
 
 async function getWeatherByName(locationName) {
     let query = "http://api.weatherapi.com/v1/current.json?key=" + process.env.REACT_APP_WEATHER_API_KEY + "&q=" + locationName;
-    getCurrentWeather(query)
+    return getCurrentWeather(query)
         .then(data => console.log(data));
 }
 
@@ -23,7 +23,6 @@ function getWeatherByPos(latitude, longitude) {
     return getCurrentWeather(query)
         .then(data => data.current);
     
-    //return weather;
 }
 
 async function getCurrentWeather(query) {
