@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 
+import {getWeatherByName, getWeatherByPos} from '../utils/WeatherAPI.js';
 
 var options = {
     timeout: 5000,
@@ -10,6 +11,11 @@ var options = {
 var success = (position) => {
     console.log(`Lat: ${position.coords.latitude}`);
     console.log(`Lon: ${position.coords.longitude}`);
+    var weather = getWeatherByPos(position.coords.latitude, position.coords.longitude);
+    weather.then(
+        report => console.log(report)
+    ).catch(err => console.log("Could not get the weather at this time"));
+
 }
 
 var errors = (err) => {
