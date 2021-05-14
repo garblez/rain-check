@@ -10,7 +10,7 @@ export {getWeatherByName, getWeatherByPos}
 
 async function getWeatherByName(locationName) {
     let query = "http://api.weatherapi.com/v1/current.json?key=" + process.env.REACT_APP_WEATHER_API_KEY + "&q=" + locationName;
-    return getCurrentWeather(query)
+    return getWeather(query)
         .then(data => console.log(data));
 }
 
@@ -18,15 +18,26 @@ function getWeatherByPos(latitude, longitude) {
     let query = "http://api.weatherapi.com/v1/current.json?key=" + process.env.REACT_APP_WEATHER_API_KEY + 
         "&q=" + latitude + "," + longitude;
 
-    var weather = {};
-
-    return getCurrentWeather(query)
+    return getWeather(query)
         .then(data => data.current);
     
 }
 
-async function getCurrentWeather(query) {
+async function getWeather(query) {
     let response = await fetch(query);
     let data = await response.json();
     return data;
+}
+
+
+async function getForecastByName(locationName) {
+    let query = "http://api.weatherapi.com/v1/forecast.json?key=" + process.env.REACT_APP_WEATHER_API_KEY + "&q=" + locationName + "&days=7";
+    return getWeather(query)
+        .then(data => data);
+}
+
+async function getForecastByPos(latitude, longitude) {
+    let query = "http://api.weatherapi.com/v1/forecast.json?key=" + process.env.REACT_APP_WEATHER_API_KEY + "&q=" + latitude + "," + longitude + "&days=7";
+    return getWeather(query)
+        .then(data => data);
 }
