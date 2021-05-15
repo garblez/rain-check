@@ -35,7 +35,12 @@ export default function rootReducer(state = initialState, action) {
                 forecast: action.payload
             };
         case 'all/update':
-            return action.payload;
+            return {
+                ...state,
+                current: action.payload.current,
+                location: action.payload.location,
+                forecast: action.payload.forecast
+            };
         default:
             return state;
     }

@@ -1,8 +1,10 @@
 import React, {Component} from "react";
+import {connect} from 'react-redux';
 
 import {getWeather} from '../utils/WeatherAPI.js';
+import store from '../redux/store';
+import CurrentWeather from './CurrentWeather';
 
-import store from '../store';
 
 var options = {
     timeout: 5000,
@@ -48,37 +50,57 @@ function setLocation() {
         // This browser/device cannot provide geolocation - default to Glasgow
         // by not updating the initial value
     }    
+    getWeather(store.getState().location)
+        .then(weather => store.dispatch({type: 'all/update', payload: weather}))
+        .catch(err => console.log("Error: unable to retrieve weather data"));
 }
 
-export default class WeatherPanel extends Component {
+
+
+function setWeather() {
+    getWeather(store.getState().location)
+        .then(weather => store.dispatch({type: 'all/update', payload: weather}))
+        .catch(err => console.log("Error: unable to retrieve weather data"));
+}
+
+
+
+class WeatherPanel extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
             place: ''
         }
-    }
 
-    componentDidMount() {
         setLocation(); // Get the user's current location and store it.
-
-        console.log(getWeather(store.getState()));
+        //setWeather();
+        
     }
-    
-      render() {
-        let location = store.getState().location;
-        const unsubscribe = store.subscribe(() => {
-            if ("name" in location) {
-                this.setState({place: location.name})
+
+
+    render() {
+
+        
+/*
+        this.unsubscribe = store.subscribe(() => {
+            if ("name" in store.getState().location) {
+                this.setState({place: store.getState().location.name})
             } else {
                 this.setState({place: "Your Current Location"});
             }
         });
-       
+        */
+       console.log(this.props)
         return (
             <div>
-                <h1>Rain Check for {this.state.place}</h1>
+                <h1>Rain Check for {this.props.location.name}</h1>
+                <CurrentWeather />
             </div>
         );
-      }
+    }
 }
+
+const mapStateToProps = (state) => ({location: state.location});
+
+export default connect(mapStateToProps)(WeatherPanel);
