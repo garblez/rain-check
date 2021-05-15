@@ -1,43 +1,32 @@
-export {getWeatherByName, getWeatherByPos}
+export {getWeather}
 
 /*
-    getWeatherByName: input is the name of the location in the weather report (i.e., "Glasgow")
-                    returns a Promise of the current weather report.
-    getWeatherByPos:  input is the latitude and longitude of the user's geolocation
-                    returns a Promise of the current weather report. 
+    getWeather
+        Takes geolocation as input - this could either be in the form {name: <place name>} or {latitude: <num>, longitude: <num>} 
+        Returns a Promise value of the current weather report for that geolocation.
 */
 
+const QUERY_HEADER = "http://api.weatherapi.com/v1/current.json?key=" + process.env.REACT_APP_WEATHER_API_KEY;
 
-async function getWeatherByName(locationName) {
-    let query = "http://api.weatherapi.com/v1/current.json?key=" + process.env.REACT_APP_WEATHER_API_KEY + "&q=" + locationName;
-    return getWeather(query)
-        .then(data => console.log(data));
-}
 
-function getWeatherByPos(latitude, longitude) {
-    let query = "http://api.weatherapi.com/v1/current.json?key=" + process.env.REACT_APP_WEATHER_API_KEY + 
-        "&q=" + latitude + "," + longitude;
 
-    return getWeather(query)
-        .then(data => data.current);
-    
-}
+// Get the current weather report based on the user's geolocation
+async function getWeather(geolocation) {
+    let q = unwrapGeolocation(geolocation);
+    let response = await fetch(QUERY_HEADER + "&q=" + q + "&days=7");
+    let weather = await response.json();
 
-async function getWeather(query) {
-    let response = await fetch(query);
-    let data = await response.json();
-    return data;
+    return weather;
 }
 
 
-async function getForecastByName(locationName) {
-    let query = "http://api.weatherapi.com/v1/forecast.json?key=" + process.env.REACT_APP_WEATHER_API_KEY + "&q=" + locationName + "&days=7";
-    return getWeather(query)
-        .then(data => data);
-}
-
-async function getForecastByPos(latitude, longitude) {
-    let query = "http://api.weatherapi.com/v1/forecast.json?key=" + process.env.REACT_APP_WEATHER_API_KEY + "&q=" + latitude + "," + longitude + "&days=7";
-    return getWeather(query)
-        .then(data => data);
+// Gets a geolocation parameter from a geolocation object.
+function unwrapGeolocation(geolocation = {}) {
+    if ("latitude" in geolocation && "longitude" in geolocation) {
+        return geolocation.latitude + "," + geolocation.longitude;
+    } else if ("name" in geolocation) {
+        return geolocation.name;
+    } else {
+        return "Glasgow";
+    }
 }
