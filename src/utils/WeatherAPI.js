@@ -11,8 +11,8 @@ const QUERY_HEADER = "http://api.weatherapi.com/v1/current.json?key=" + process.
 
 
 // Get the current weather report based on the user's geolocation
-async function getWeather(geolocation) {
-    let q = unwrapGeolocation(geolocation);
+async function getWeather(location) {
+    let q = unwrapGeolocation(location);
     let response = await fetch(QUERY_HEADER + "&q=" + q + "&days=7");
     let weather = await response.json();
 
@@ -21,11 +21,11 @@ async function getWeather(geolocation) {
 
 
 // Gets a geolocation parameter from a geolocation object.
-function unwrapGeolocation(geolocation = {}) {
-    if ("latitude" in geolocation && "longitude" in geolocation) {
-        return geolocation.latitude + "," + geolocation.longitude;
+function unwrapGeolocation(location = {}) {
+    if ("lat" in location && "lon" in geolocation) {
+        return location.lat + "," + geolocation.lon;
     } else if ("name" in geolocation) {
-        return geolocation.name;
+        return location.name;
     } else {
         return "Glasgow";
     }
