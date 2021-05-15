@@ -1,6 +1,3 @@
-import {getWeatherByName, getWeatherByPos} from './utils/WeatherAPI';
-
-
 const initialState = {
     location: {
             name: "Glasgow",
@@ -37,6 +34,8 @@ export default function rootReducer(state = initialState, action) {
                 ...state, 
                 forecast: action.payload
             };
+        case 'all/update':
+            return action.payload;
         default:
             return state;
     }
