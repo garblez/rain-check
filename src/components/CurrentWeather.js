@@ -9,11 +9,7 @@ class CurrentWeather extends React.Component {
 
 
     render() {
-        let weather = this.props.current;
-
-        
-        console.log(this.props);
-
+        let weather = this.props;
         return (
             <div>
                <h1>Hi, it's  today!</h1>
@@ -23,7 +19,7 @@ class CurrentWeather extends React.Component {
 }
 
 
-const mapStateToProps = (state) => ({current: state.current});
+const mapStateToProps = (state) => (state);
 
 
 export default connect(mapStateToProps)(CurrentWeather);
