@@ -6,7 +6,7 @@ export {getWeather}
         Returns a Promise value of the current weather report for that geolocation.
 */
 
-const QUERY_HEADER = "http://api.weatherapi.com/v1/current.json?key=" + process.env.REACT_APP_WEATHER_API_KEY;
+const QUERY_HEADER = "http://api.weatherapi.com/v1/forecast.json?key=" + process.env.REACT_APP_WEATHER_API_KEY;
 
 
 
@@ -15,7 +15,6 @@ async function getWeather(location) {
     let q = unwrapLocation(location);
     let response = await fetch(QUERY_HEADER + "&q=" + q + "&days=7&aqi=no&alerts=no");
     let weather = await response.json();
-
     return weather;
 }
 

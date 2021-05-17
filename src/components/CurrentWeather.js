@@ -10,9 +10,13 @@ class CurrentWeather extends React.Component {
 
     render() {
         let weather = this.props;
-        return (
-            <div>
-               <img src={weather.condition.icon}/>
+
+        let report;
+        if (weather) {
+            
+            report = (
+                <div>
+                    <img src={weather.condition.icon}/>
                <h1>{weather.condition.text}</h1>
                <table>
                    <tbody>
@@ -36,6 +40,19 @@ class CurrentWeather extends React.Component {
                     </tr>
                     </tbody>
                 </table>
+                </div>
+            );
+        } else {
+            report = (
+                <div>
+                    <p>Loading current weather report...</p>
+                </div>
+            );
+        }
+
+        return (
+            <div>
+               {report}
             </div>
         );
     }

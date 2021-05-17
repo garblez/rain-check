@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import {getWeather} from '../utils/WeatherAPI.js';
 import store from '../redux/store';
 import CurrentWeather from './CurrentWeather';
+import ForecastWeather from './ForecastWeather';
 
 import {updateLocation, updateAll, updateCurrent} from '../redux/actions';
 
@@ -29,6 +30,7 @@ class WeatherPanel extends Component {
         getWeather({lat: coords.latitude, lon: coords.longitude})
             .then(report => {
                 this.props.updateAll(report);
+
             })
             .catch(err => this.props.updateAll({error: "Unable to retrieve weather data"}));
 
@@ -72,11 +74,13 @@ class WeatherPanel extends Component {
 
     render() {
         let panel;
+        console.log(this.props);
         if (this.props) {
             panel = (
                 <div>
                 <h1>Rain Check for {this.props.name}</h1>
-                <CurrentWeather />
+                    <CurrentWeather />
+                    <ForecastWeather />
                 </div>
             );
         } else {
