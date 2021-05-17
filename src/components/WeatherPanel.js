@@ -5,13 +5,18 @@ import {getWeather} from '../utils/WeatherAPI.js';
 import CurrentWeather from './CurrentWeather';
 import ForecastWeather from './ForecastWeather';
 
-import {updateLocation, updateAll, updateCurrent} from '../redux/actions';
+import {updateLocation, updateAll, updateCurrent, updateForecast} from '../redux/actions';
 
 const options = {
     timeout: 5000,
     maximumAge: 0,
 };
 
+/*
+    Parent component for current weather and weather forecast components.
+    We use this component to request the user's geolocation and retrieve the weather data
+    from api.weatherapi.com to be stored in the Redux store
+*/
 class WeatherPanel extends Component {
 
     constructor(props) {
@@ -68,6 +73,8 @@ class WeatherPanel extends Component {
 
     render() {
         let panel;
+
+        // For allowing the component to render before the weather api Promise is fulfilled
         if (this.props) {
             panel = (
                 <div>

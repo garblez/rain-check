@@ -1,23 +1,24 @@
 import React from 'react';
 import {connect} from 'react-redux';
 
-
+/*
+    Report the current weather data retrieved from the API based on the user's location and defaulting to 
+    Glasgow if none is given.
+*/  
 class CurrentWeather extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
 
     render() {
         let weather = this.props;
         
         let report;
+
+        // For allowing the current weather component to render before the weather api Promise is fulfilled
         if (weather) {
             report = (
                 <div>
 
                     {weather.condition && <div>
-                        <img src={weather.condition.icon}/>
+                        <img src={weather.condition.icon} alt="weather_icon"/>
                         <h1>{weather.condition.text} {weather.temp_c} C </h1>
                     </div>}
                     <h2>
