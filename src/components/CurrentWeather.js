@@ -10,36 +10,22 @@ class CurrentWeather extends React.Component {
 
     render() {
         let weather = this.props;
-
+        
         let report;
         if (weather) {
-            
             report = (
                 <div>
-                    <img src={weather.condition.icon}/>
-               <h1>{weather.condition.text}</h1>
-               <table>
-                   <tbody>
-                    <tr>
-                        <td>
-                            It's {weather.temp_c} C 
-                        </td>
-                        <td></td>
-                        <td>
-                            feels like {weather.feelslike_c} C
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            {weather.wind_dir} 
-                        </td>
-                        <td></td>
-                        <td>
-                            wind at {weather.wind_mph}
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+
+                    {weather.condition && <div>
+                        <img src={weather.condition.icon}/>
+                        <h1>{weather.condition.text} {weather.temp_c} C </h1>
+                    </div>}
+                    <h2>
+                        feels like {weather.feelslike_c} C
+                    </h2>
+                    <h3>
+                        {weather.wind_dir} wind at {weather.wind_mph} mph
+                    </h3>    
                 </div>
             );
         } else {

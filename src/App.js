@@ -5,7 +5,7 @@ import WeatherPanel from './components/WeatherPanel.js';
 function App() {
   return (
     
-    <div className="App">
+    <div>
       <WeatherPanel/>
     </div>
   );

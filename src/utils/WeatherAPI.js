@@ -9,7 +9,6 @@ export {getWeather}
 const QUERY_HEADER = "http://api.weatherapi.com/v1/forecast.json?key=" + process.env.REACT_APP_WEATHER_API_KEY;
 
 
-
 // Get the current weather report based on the user's geolocation
 async function getWeather(location) {
     let q = unwrapLocation(location);
