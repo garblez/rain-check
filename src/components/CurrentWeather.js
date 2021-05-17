@@ -23,9 +23,9 @@ class CurrentWeather extends React.Component {
                     <h2>
                         feels like {weather.feelslike_c} C
                     </h2>
-                    <h3>
+                    <h2>
                         {weather.wind_dir} wind at {weather.wind_mph} mph
-                    </h3>    
+                    </h2>    
                 </div>
             );
         } else {
