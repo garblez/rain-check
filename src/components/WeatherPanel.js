@@ -71,17 +71,29 @@ class WeatherPanel extends Component {
 
 
     render() {
-        let place = "";
-        console.log(this.props);
+        let panel;
+        if (this.props) {
+            panel = (
+                <div>
+                <h1>Rain Check for {this.props.name}</h1>
+                <CurrentWeather />
+                </div>
+            );
+        } else {
+            panel = (
+                <div>
+                    <h1>Loading weather data...</h1>
+                </div>
+            );
+        }
         return (
             <div>
-                <h1>Rain Check for {place}</h1>
-                <CurrentWeather />
+                {panel}
             </div>
         );
     }
 }
 
-const mapStateToProps = (state) => ({location: state.location});
+const mapStateToProps = (state) => (state.location);
 
 export default connect(mapStateToProps, {updateLocation, updateAll, updateCurrent})(WeatherPanel);

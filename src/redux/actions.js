@@ -19,7 +19,7 @@ export const updateForecast = content => ({
 
 export const updateAll = content => ({
     type: UPDATE_ALL,
-    payload: {content}
+    payload: content
 });
 
 
