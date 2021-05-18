@@ -1,4 +1,4 @@
-export {getWeather}
+export {getWeather, unwrapLocation}
 
 /*
     getWeather

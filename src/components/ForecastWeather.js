@@ -7,7 +7,6 @@ import {connect} from 'react-redux';
 class ForecastWeather extends React.Component {
 
     render() {
-        
         let forecast = this.props.forecastday;
         let numDays = Object.keys(forecast).length;
         let reports = [];
